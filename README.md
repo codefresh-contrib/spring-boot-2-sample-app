@@ -49,7 +49,7 @@ There is also a [codefresh.yml](codefresh.yml) for easy usage with the [Codefres
 
 
 
-See the *multi-stage-docker* branch of this repo for a Dockerfile that uses multi-stage builds
+See the [multi-stage-docker branch](https://github.com/codefresh-contrib/spring-boot-2-sample-app/tree/multi-stage-docker) of this repo for a [Dockerfile](https://github.com/codefresh-contrib/spring-boot-2-sample-app/blob/multi-stage-docker/Dockerfile) that uses multi-stage builds and the respective [codefresh.yml](https://github.com/codefresh-contrib/spring-boot-2-sample-app/blob/multi-stage-docker/codefresh.yml)
 
 
 Enjoy!
