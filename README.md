@@ -1,0 +1,46 @@
+# Dockerized Spring boot 2 application
+
+This is an example Java application that uses Spring Boot 2 and Docker.
+It is compiled using Codefresh
+
+## Instructions
+
+To compile (also runs unit tests)
+
+```
+mvn package
+```
+
+## To run integration tests
+
+```
+mvn verify
+```
+
+## To run the webapp manually
+
+```
+mvn spring-boot:run
+```
+
+....and navigate your browser to  http://localhost:8080/
+
+## To create a docker image
+
+```
+mvn package
+docker build -t my-spring-boot-sample .
+```
+
+
+## To run the docker image
+
+```
+docker run -p 8080:8080 my-spring-boot-sample
+```
+
+The Dockerfile also has a healthcheck
+
+See the *multi-stage-docker* branch of this repo for a Dockerfile that uses multi-stage builds
+Enjoy!
+
