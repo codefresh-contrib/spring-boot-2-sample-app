@@ -41,6 +41,14 @@ docker run -p 8080:8080 my-spring-boot-sample
 
 The Dockerfile also has a healthcheck
 
+## To use this project in Codefresh 
+
+There is also a [codefresh.yml](codefresh.yml) for easy usage with the [Codefresh](codefresh.io) CI/CD platform.
+
+
+
 See the *multi-stage-docker* branch of this repo for a Dockerfile that uses multi-stage builds
+
+
 Enjoy!
 
