@@ -1,5 +1,15 @@
 version: '1.0'
 steps:
+  Compilation:
+    title: Compile/Unit test
+    image: maven:3.5.2-jdk-8-alpine
+    commands:
+     - mvn -Dmaven.repo.local=/codefresh/volume/m2_repository package
+  Integration:
+    title: Integration test
+    image: maven:3.5.2-jdk-8-alpine
+    commands:
+     - mvn -Dmaven.repo.local=/codefresh/volume/m2_repository verify
   BuildingDockerImage:
     title: Building Docker Image
     type: build
@@ -7,3 +17,7 @@ steps:
     working_directory: ./
     tag: '${{CF_BRANCH_TAG_NORMALIZED}}-${{CF_SHORT_REVISION}}'
     dockerfile: Dockerfile
+    metadata: # Declare the metadata attribute
+      set: # Specify the set operation
+        - build_style: non-multi-stage
+  
