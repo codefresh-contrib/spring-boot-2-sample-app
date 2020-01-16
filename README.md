@@ -16,12 +16,6 @@ To compile (also runs unit tests)
 mvn package
 ```
 
-## To run integration tests
-
-```
-mvn verify
-```
-
 ## To run the webapp manually
 
 ```
@@ -30,11 +24,26 @@ mvn spring-boot:run
 
 ....and navigate your browser to  http://localhost:8080/
 
-## To create a docker image
+## To run integration tests
+
+```
+mvn spring-boot:run
+mvn verify
+```
+
+## To create a docker image packaging an existing jar
 
 ```
 mvn package
-docker build -t my-spring-boot-sample .
+docker build -t my-spring-boot-sample . -f Dockerfile.only-package
+```
+
+## Create a multi-stage docker image
+
+To compile and package using Docker multi-stage builds
+
+```bash
+docker build . -t my-spring-boot-sample
 ```
 
 
@@ -48,11 +57,13 @@ The Dockerfile also has a healthcheck
 
 ## To use this project in Codefresh 
 
+
 There is also a [codefresh.yml](codefresh.yml) for easy usage with the [Codefresh](codefresh.io) CI/CD platform.
 
+For the simple packaging pipeline see [codefresh-package-only.yml](codefresh-package-only.yml)
 
 
-See the [multi-stage-docker branch](https://github.com/codefresh-contrib/spring-boot-2-sample-app/tree/multi-stage-docker) of this repo for a [Dockerfile](https://github.com/codefresh-contrib/spring-boot-2-sample-app/blob/multi-stage-docker/Dockerfile) that uses multi-stage builds and the respective [codefresh.yml](https://github.com/codefresh-contrib/spring-boot-2-sample-app/blob/multi-stage-docker/codefresh.yml)
+More details can be found in [Codefresh documentation](https://codefresh.io/docs/docs/learn-by-example/java/spring-boot-2/)
 
 
 Enjoy!
