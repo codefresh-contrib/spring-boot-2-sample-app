@@ -1,20 +1,46 @@
 version: '1.0'
 stages:
   - prepare
+  - test
   - build
+  - 'integration test'
 steps:
   main_clone:
     title: Cloning main repository...
     stage: prepare
     type: git-clone
     repo: 'codefresh-contrib/spring-boot-2-sample-app'
-    revision: multi-stage-docker
+    revision: master
     git: github
-  BuildingDockerImage:
+  run_unit_tests:
+    title: Compile/Unit test
+    stage: test
+    image: 'maven:3.5.2-jdk-8-alpine'
+    commands:
+      - mvn -Dmaven.repo.local=/codefresh/volume/m2_repository test      
+  build_app_image:
     title: Building Docker Image
-    stage: build
     type: build
+    stage: build
     image_name: spring-boot-2-sample-app
     working_directory: ./
     tag: 'multi-stage'
     dockerfile: Dockerfile
+  run_integration_tests:
+    title: Integration test
+    stage: 'integration test'
+    image: maven:3.5.2-jdk-8-alpine
+    commands:
+     - mvn -Dmaven.repo.local=/codefresh/volume/m2_repository verify -Dserver.host=http://my-spring-app
+    services:
+      composition:
+        my-spring-app:
+          image: '${{build_app_image}}'
+          ports:
+            - 8080
+      readiness:
+        timeoutSeconds: 30
+        periodSeconds: 15
+        image: byrnedo/alpine-curl
+        commands:
+          - "curl http://my-spring-app:8080/"
