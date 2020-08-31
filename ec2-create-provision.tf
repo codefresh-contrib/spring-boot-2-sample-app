@@ -53,8 +53,6 @@ resource "aws_instance" "aws_cf_tf" {
   ami = "ami-0ba8629bff503c084"
   instance_type = "t3.micro"
 
-
-
   key_name = "aws-cf-tf"
 
   vpc_security_group_ids = ["${aws_security_group.aws_cf_tf.id}"]
@@ -66,7 +64,7 @@ resource "aws_instance" "aws_cf_tf" {
     user = "ubuntu"
     type = "ssh"
     private_key = "${file(var.private_key_path)}"
-    host = "${aws_instance.aws_cf_tf.public_dns}"
+    host = aws_instance.aws_cf_tf.public_dns
     # The connection will use the local SSH agent for authentication.
   }
 
