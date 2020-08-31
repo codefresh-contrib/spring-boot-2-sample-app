@@ -10,7 +10,7 @@ provider "aws" {}
 
 variable private_key_path{
   description = "Path to the SSH private key to be used for authentication"
-  default = "~/.ssh/private.pem"
+  default = "./private.pem"
 }
 
 variable sftp_batch_path {
