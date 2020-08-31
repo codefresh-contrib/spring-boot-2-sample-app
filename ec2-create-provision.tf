@@ -59,6 +59,8 @@ resource "aws_instance" "aws_cf_tf" {
 
   subnet_id = "subnet-0226033eab8e4f954"
 
+  associate_public_ip_address = true
+
   connection {
     # The default username for our AMI
     user = "ubuntu"
