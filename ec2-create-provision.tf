@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
     bucket = "cf-sales-dev-tf-state-files"
-    key    = "/aws-spring-boot-deploy/key"
+    key    = "aws-spring-boot-deploy/key"
     region = "us-west-2"
   }
 }
