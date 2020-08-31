@@ -47,7 +47,7 @@ resource "aws_instance" "aws_cf_tf" {
 
   key_name = "aws-cf-tf"
 
-  vpc_security_group_ids = ["vpc-02c5dbe54afc8ed28"]
+  vpc_security_group_ids = ["${aws_security_group.aws_cf_tf.id}"]
 
   connection {
     # The default username for our AMI
