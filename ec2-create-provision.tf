@@ -49,12 +49,12 @@ resource "aws_instance" "aws_cf_tf" {
 
   vpc_security_group_ids = ["vpc-02c5dbe54afc8ed28"]
 
-
   connection {
     # The default username for our AMI
     user = "ubuntu"
     type = "ssh"
     private_key = "${file(var.private_key_path)}"
+    host = "${aws_instance.aws_cf_tf.public_dns}"
     # The connection will use the local SSH agent for authentication.
   }
 
