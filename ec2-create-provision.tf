@@ -50,7 +50,7 @@ resource "aws_security_group" "aws_cf_tf" {
 
 
 resource "aws_instance" "aws_cf_tf" {
-  ami = "ami-060cde69"
+  ami = "ami-0aed2b3b202a503d0"
   instance_type = "t2.micro"
 
   key_name = "aws-cf-tf"
