@@ -1,3 +1,11 @@
+terraform {
+  backend "s3" {
+    bucket = "cf-sales-dev-tf-state-files"
+    key    = "/aws-spring-boot-deploy/key"
+    region = "us-west-2"
+  }
+}
+
 provider "aws" {}
 
 variable private_key_path{
