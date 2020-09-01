@@ -101,6 +101,7 @@ resource "aws_eip" "aws_cf_tf" {
   # run jar
   provisioner "remote-exec" {
     inline = [
+      "echo ${self.public_ip} > myip.txt".
       "java -Djava.security.egd=file:/dev/./urandom -Dserver.port=8080 -Dserver.host=http://${self.public_ip} -jar /home/ubuntu/spring-boot-application.jar &"
     ]
   }
