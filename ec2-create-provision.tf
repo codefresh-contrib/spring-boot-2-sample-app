@@ -88,6 +88,7 @@ resource "aws_eip" "aws_cf_tf" {
   provisioner "remote-exec" {
     inline = [
       "sudo apt-get -y update",
+      "mkdir -p /usr/share/man/man1",
       "sudo apt-get -y install openjdk-8-jre-headless"
     ]
   }
