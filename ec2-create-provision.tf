@@ -106,11 +106,6 @@ resource "aws_eip" "aws_cf_tf" {
     ]
   }
 
-  output "instance_ip_addr" {
-    value       = aws_eip.aws_cf_tf.public_ip
-    description = "The public IP address of the main server instance."
-  }
-
   depends_on = [
   # Instance must exist.
     aws_instance.aws_cf_tf
