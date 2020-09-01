@@ -13,11 +13,6 @@ variable private_key_path{
   default = "./private.pem"
 }
 
-variable sftp_batch_path {
-  description = "Path do sftp batch file"
-  default = "~/sftp_batchfile"
-}
-
 resource "aws_security_group" "aws_cf_tf" {
   name        = "aws_cf_tf"
   description = "Used in the terraform"
@@ -97,8 +92,4 @@ resource "aws_eip" "aws_cf_tf" {
     ]
   }
 
-  # download logFile results
-  provisioner "local-exec" {
-    command = "sftp -b ${var.sftp_batch_path} -i ${var.private_key_path} -o StrictHostKeyChecking=no ubuntu@${aws_instance.aws_cf_tf.public_dns}"
-  }
 }
