@@ -89,7 +89,7 @@ resource "aws_eip" "aws_cf_tf" {
     inline = [
       "sudo apt-get -y update",
       "mkdir -p /usr/share/man/man1",
-      "sudo apt-get -y install openjdk-8-jre-headless"
+      "sudo apt-get -y install ca-certificates-java openjdk-8-jre-headless"
     ]
   }
 
