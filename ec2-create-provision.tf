@@ -93,7 +93,7 @@ resource "aws_eip" "aws_cf_tf" {
   # run jar
   provisioner "remote-exec" {
     inline = [
-      "java -Djava.security.egd=file:/dev/./urandom -jar /app/spring-boot-application.jar",
+      "java -Djava.security.egd=file:/dev/./urandom -jar /home/ubuntu/spring-boot-application.jar",
     ]
   }
 
