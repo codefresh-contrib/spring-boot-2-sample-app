@@ -102,7 +102,8 @@ resource "aws_eip" "aws_cf_tf" {
   # run jar
   provisioner "remote-exec" {
     inline = [
-      "nohup java -Djava.security.egd=file:/dev/./urandom -Dserver.port=8080 -Dserver.host=http://${aws_eip.aws_cf_tf.public_ip} -jar /home/ubuntu/spring-boot-application.jar &; disown"
+      "nohup java -Djava.security.egd=file:/dev/./urandom -Dserver.port=8080 -Dserver.host=http://${aws_eip.aws_cf_tf.public_ip} -jar /home/ubuntu/spring-boot-application.jar &",
+      "disown"
     ]
   }
 
