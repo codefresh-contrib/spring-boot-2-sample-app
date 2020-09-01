@@ -26,6 +26,14 @@ resource "aws_security_group" "aws_cf_tf" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  # Java application access from anywhere
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   # HTTP access from the internet
   egress {
     from_port   = 80
