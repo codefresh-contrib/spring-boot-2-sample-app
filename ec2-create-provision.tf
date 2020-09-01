@@ -72,7 +72,7 @@ resource "aws_eip" "aws_cf_tf" {
     user = "ubuntu"
     type = "ssh"
     private_key = "${file(var.private_key_path)}"
-    host = "aws_eip.aws_cf_tf.public_ip"
+    host = aws_eip.aws_cf_tf.public_ip
     # The connection will use the local SSH agent for authentication.
   } 
 
