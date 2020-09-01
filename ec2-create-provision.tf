@@ -58,7 +58,7 @@ resource "aws_instance" "aws_cf_tf" {
 
   key_name = "aws-cf-tf"
 
-  vpc_security_group_ids = ["${aws_security_group.aws_cf_tf.id}"]
+  vpc_security_group_ids = [data.aws_security_group.aws_cf_tf.id]
 
   subnet_id = "subnet-0226033eab8e4f954"
 
@@ -74,7 +74,7 @@ resource "aws_eip" "aws_cf_tf" {
     # The default username for our AMI
     user = "ubuntu"
     type = "ssh"
-    private_key = "${file(var.private_key_path)}"
+    private_key = file(var.private_key_path)
     host = aws_eip.aws_cf_tf.public_ip
     # The connection will use the local SSH agent for authentication.
   } 
@@ -96,7 +96,7 @@ resource "aws_eip" "aws_cf_tf" {
   # run jar
   provisioner "remote-exec" {
     inline = [
-      "java -Djava.security.egd=file:/dev/./urandom -Dserver.port=8080 -Dserver.host=http://${aws_eip.aws_cf_tf.public_ip} -jar /home/ubuntu/spring-boot-application.jar &"
+      "java -Djava.security.egd=file:/dev/./urandom -Dserver.port=8080 -Dserver.host=http://${data.aws_eip.aws_cf_tf.public_ip} -jar /home/ubuntu/spring-boot-application.jar &"
     ]
   }
 
