@@ -59,16 +59,22 @@ resource "aws_instance" "aws_cf_tf" {
 
   subnet_id = "subnet-0226033eab8e4f954"
 
-  associate_public_ip_address = true
+}
+
+resource "aws_eip" "aws_cf_tf" {
+  vpc = true
+
+  instance                  = aws_instance.aws_cf_tf.id
+  associate_with_private_ip = aws_instance.aws_cf_tf.private_ip
 
   connection {
     # The default username for our AMI
     user = "ubuntu"
     type = "ssh"
     private_key = "${file(var.private_key_path)}"
-    host = "aws_instance.aws_cf_tf.public_ip"
+    host = "aws_eip.aws_cf_tf.public_ip"
     # The connection will use the local SSH agent for authentication.
-  }
+  } 
 
   # install java, create dir
   provisioner "remote-exec" {
@@ -95,8 +101,4 @@ resource "aws_instance" "aws_cf_tf" {
   provisioner "local-exec" {
     command = "sftp -b ${var.sftp_batch_path} -i ${var.private_key_path} -o StrictHostKeyChecking=no ubuntu@${aws_instance.aws_cf_tf.public_dns}"
   }
-
-
 }
-
-
