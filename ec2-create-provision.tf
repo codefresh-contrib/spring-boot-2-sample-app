@@ -62,20 +62,25 @@ resource "aws_instance" "aws_cf_tf" {
 
   subnet_id = "subnet-0226033eab8e4f954"
 
+  depends_on = [
+  # Security Group must exist.
+    aws_security_group.aws_cf_tf
+  ]
+
 }
 
 resource "aws_eip" "aws_cf_tf" {
   vpc = true
 
-  instance                  = aws_instance.aws_cf_tf.id
-  associate_with_private_ip = aws_instance.aws_cf_tf.private_ip
+  instance                  = data.aws_instance.aws_cf_tf.id
+  associate_with_private_ip = data.aws_instance.aws_cf_tf.private_ip
 
   connection {
     # The default username for our AMI
     user = "ubuntu"
     type = "ssh"
     private_key = file(var.private_key_path)
-    host = aws_eip.aws_cf_tf.public_ip
+    host = data.aws_eip.aws_cf_tf.public_ip
     # The connection will use the local SSH agent for authentication.
   } 
 
@@ -103,10 +108,11 @@ resource "aws_eip" "aws_cf_tf" {
   output "instance_ip_addr" {
     value       = data.aws_eip.aws_cf_tf.public_ip
     description = "The public IP address of the main server instance."
-    depends_on = [
-    # EIP must exist.
-      aws_eip.aws_cf_tf,
-    ]
   }
+
+  depends_on = [
+  # EIP must exist.
+    aws_instance.aws_cf_tf
+  ]
 
 }
