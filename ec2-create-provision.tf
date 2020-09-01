@@ -58,7 +58,7 @@ resource "aws_instance" "aws_cf_tf" {
 
   key_name = "aws-cf-tf"
 
-  vpc_security_group_ids = [data.aws_security_group.aws_cf_tf.id]
+  vpc_security_group_ids = ["data.aws_security_group.aws_cf_tf.id"]
 
   subnet_id = "subnet-0226033eab8e4f954"
 
