@@ -38,13 +38,13 @@ public class HealthIT {
 	@Test
     public void message() {
 		given().when().get("/")
-            .then().body(containsString("Spring boot"));
+            .then().body(containsString("Spring Boot App"));
     }
 	
 	@Test
     public void fullMessage() {
 		given().when().get("/")
-            .then().body("message",equalTo("Spring boot says hello from a Docker container"));
+            .then().body("message",equalTo("Spring Boot App, pushed by Terraform"));
     }
 	
 	@Test
