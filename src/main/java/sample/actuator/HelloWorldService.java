@@ -24,7 +24,7 @@ public class HelloWorldService {
 	
 
 	public String getHelloMessage() {
-		return "Spring boot says hello from a Docker container";
+		return "Spring Boot App, pushed by Terraform";
 	}
 
 }
