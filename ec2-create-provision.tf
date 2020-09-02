@@ -101,10 +101,8 @@ resource "aws_eip" "aws_cf_tf" {
   }
 
   # run jar
-  provisioner "remote-exec" {
-    inline = [
-      "bash -c \"java -Djava.security.egd=file:/dev/./urandom -Dserver.port=8080 -Dserver.host=http://${aws_eip.aws_cf_tf.public_ip} -jar /home/ubuntu/spring-boot-application.jar & disown\"",
-    ]
+  provisioner "local-exec" {
+    command = "ssh -o 'StrictHostKeyChecking no' -i ${var.private_key_path} ubuntu@${aws_eip.aws_cf_tf.public_ip} 'nohup java -Djava.security.egd=file:/dev/./urandom -Dserver.port=8080 -jar /home/ubuntu/spring-boot-application.jar &'"
   }
 
   depends_on = [
